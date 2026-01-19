@@ -72,27 +72,17 @@ export function StoreHeader({ onCartOpen }: StoreHeaderProps) {
   const handleSignOut = async () => {
     try {
       const supabase = createClient()
-      const { error } = await supabase.auth.signOut()
-      
-      if (error) {
-        toast.error("Sign out failed", {
-          description: error.message,
-        })
-        return
-      }
+      await supabase.auth.signOut()
       
       setMobileMenuOpen(false)
-      toast.success("Signed out successfully", {
-        description: "You have been logged out of your account.",
-      })
+      toast.success("Signed out successfully")
       
-      router.refresh()
-      setTimeout(() => {
-        window.location.href = "/"
-      }, 500)
+      // Force full page reload to clear all state
+      window.location.href = "/"
     } catch (error) {
       console.error("Sign out error:", error)
-      toast.error("Sign out failed. Please try again.")
+      // Even if there's an error, force logout by clearing and redirecting
+      window.location.href = "/"
     }
   }
 

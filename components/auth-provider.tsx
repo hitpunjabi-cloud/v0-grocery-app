@@ -26,36 +26,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let mounted = true
     const supabase = supabaseRef.current
 
-    const fetchUserRole = async (userId: string) => {
-      const { data: profile, error } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", userId)
-        .single()
+    const fetchUserRole = async (userId: string): Promise<string> => {
+      try {
+        const { data: profile, error } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", userId)
+          .single()
 
-      if (error) {
-        console.error("Failed to fetch profile role:", error.message)
+        if (error) {
+          // Ignore abort errors
+          if (error.message?.includes('abort')) return "customer"
+          console.error("Failed to fetch profile role:", error.message)
+          return "customer"
+        }
+        
+        return profile?.role || "customer"
+      } catch (err: unknown) {
+        // Ignore abort errors silently
+        if (err instanceof Error && err.name === 'AbortError') return "customer"
         return "customer"
       }
-      
-      return profile?.role || "customer"
     }
 
     const getUser = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser()
+        // Use getSession instead of getUser - it's faster and doesn't make a network call
+        const { data: { session } } = await supabase.auth.getSession()
 
         if (!mounted) return
 
-        setUser(user)
+        const currentUser = session?.user || null
+        setUser(currentUser)
 
-        if (user) {
-          const role = await fetchUserRole(user.id)
+        if (currentUser) {
+          const role = await fetchUserRole(currentUser.id)
           if (mounted) {
             setUserRole(role)
           }
         }
-      } catch (error) {
+      } catch (error: unknown) {
+        // Ignore abort errors
+        if (error instanceof Error && error.name === 'AbortError') return
         console.error("Auth error:", error)
       } finally {
         if (mounted) {
