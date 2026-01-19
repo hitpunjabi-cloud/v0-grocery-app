@@ -224,11 +224,11 @@ export function AdminCategoriesPage({ categories: initialCategories }: AdminCate
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => openEditDialog(category)}>
+                            <DropdownMenuItem onSelect={() => openEditDialog(category)}>
                               <Edit className="h-4 w-4 mr-2" />
                               Edit
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-destructive" onClick={() => deleteCategory(category.id)}>
+                            <DropdownMenuItem className="text-destructive" onSelect={() => deleteCategory(category.id)}>
                               <Trash2 className="h-4 w-4 mr-2" />
                               Delete
                             </DropdownMenuItem>

@@ -385,12 +385,12 @@ export function AdminProductsPage({ products: initialProducts, categories }: Adm
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="bg-white border-gray-200">
-                            <DropdownMenuItem onClick={() => openEditDialog(product)} className="text-gray-700">
+                            <DropdownMenuItem onSelect={() => openEditDialog(product)} className="text-gray-700">
                               <Edit className="h-4 w-4 mr-2" />
                               Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                              onClick={() => toggleProductStatus(product.id, !product.is_active)}
+                              onSelect={() => toggleProductStatus(product.id, !product.is_active)}
                               className="text-gray-700"
                             >
                               {product.is_active ? (
@@ -405,7 +405,7 @@ export function AdminProductsPage({ products: initialProducts, categories }: Adm
                                 </>
                               )}
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-600" onClick={() => deleteProduct(product.id)}>
+                            <DropdownMenuItem className="text-red-600" onSelect={() => deleteProduct(product.id)}>
                               <Trash2 className="h-4 w-4 mr-2" />
                               Delete
                             </DropdownMenuItem>

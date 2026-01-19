@@ -274,11 +274,11 @@ export function AdminOrdersPage({ orders: initialOrders }: AdminOrdersPageProps)
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem onClick={() => setSelectedOrder(order)}>
+                              <DropdownMenuItem onSelect={() => setSelectedOrder(order)}>
                                 <Eye className="h-4 w-4 mr-2" />
                                 View Details
                               </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => setAssignRiderOrder(order)}>
+                              <DropdownMenuItem onSelect={() => setAssignRiderOrder(order)}>
                                 <UserPlus className="h-4 w-4 mr-2" />
                                 Assign Rider
                               </DropdownMenuItem>
@@ -287,7 +287,7 @@ export function AdminOrdersPage({ orders: initialOrders }: AdminOrdersPageProps)
                               {Object.entries(statusConfig).map(([key, config]) => (
                                 <DropdownMenuItem
                                   key={key}
-                                  onClick={() => updateOrderStatus(order.id, key as OrderStatus)}
+                                  onSelect={() => updateOrderStatus(order.id, key as OrderStatus)}
                                   disabled={order.status === key}
                                 >
                                   <config.icon className="h-4 w-4 mr-2" />

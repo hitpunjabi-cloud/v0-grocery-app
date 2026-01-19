@@ -343,11 +343,11 @@ export function AdminBannersPage({ banners: initialBanners }: AdminBannersPagePr
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => openEditDialog(banner)}>
+                            <DropdownMenuItem onSelect={() => openEditDialog(banner)}>
                               <Edit className="h-4 w-4 mr-2" />
                               Edit
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => toggleBannerStatus(banner.id, !banner.is_active)}>
+                            <DropdownMenuItem onSelect={() => toggleBannerStatus(banner.id, !banner.is_active)}>
                               {banner.is_active ? (
                                 <>
                                   <EyeOff className="h-4 w-4 mr-2" />
@@ -360,7 +360,7 @@ export function AdminBannersPage({ banners: initialBanners }: AdminBannersPagePr
                                 </>
                               )}
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-destructive" onClick={() => deleteBanner(banner.id)}>
+                            <DropdownMenuItem className="text-destructive" onSelect={() => deleteBanner(banner.id)}>
                               <Trash2 className="h-4 w-4 mr-2" />
                               Delete
                             </DropdownMenuItem>

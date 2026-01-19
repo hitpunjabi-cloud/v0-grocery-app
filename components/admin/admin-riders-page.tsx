@@ -259,7 +259,7 @@ export function AdminRidersPage({ riders: initialRiders }: AdminRidersPageProps)
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                               className="text-destructive"
-                              onClick={() => {
+                              onSelect={() => {
                                 setSelectedRider(rider)
                                 setIsDeleteDialogOpen(true)
                               }}

@@ -275,7 +275,12 @@ export function StoreHeader({ onCartOpen }: StoreHeaderProps) {
                         </Link>
                       )}
                       <button
-                        onClick={handleSignOut}
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          handleSignOut()
+                        }}
                         className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 text-red-600 transition-colors"
                       >
                         <LogOut className="h-5 w-5" />
@@ -499,7 +504,10 @@ export function StoreHeader({ onCartOpen }: StoreHeaderProps) {
                   )}
                   <DropdownMenuSeparator className="bg-gray-100" />
                   <DropdownMenuItem
-                    onClick={handleSignOut}
+                    onSelect={(e) => {
+                      e.preventDefault()
+                      handleSignOut()
+                    }}
                     className="text-red-600 cursor-pointer px-3 py-2.5 rounded-lg hover:bg-red-50"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
